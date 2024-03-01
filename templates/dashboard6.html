@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 50px;
+        }
+
+        .tabs {
+            display: flex;
+        }
+
+        .tab {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            margin-right: 10px;
+        }
+
+        .tab.active {
+            background-color: #ddd;
+        }
+
+        .table-container {
+            display: none;
+            width: 100%;
+        }
+
+        .table-container.active {
+            display: block;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard for Bugging Policies</h1>
+        <div class="tabs">
+            <div class="tab active" data-table="docker">Docker</div>
+            <div class="tab" data-table="helm">Helm</div>
+            <div class="tab" data-table="checkov">Checkov</div>
+        </div>
+        <div class="table-container active" id="docker-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Namespace</th>
+                        <th>Priority</th>
+                        <th>Support Page</th>
+                        <th>Vulnerability Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in docker_data %}
+                    <tr>
+                        <td>{{ entry['namespace'] }}</td>
+                        <td>{{ entry['priority'] }}</td>
+                        <td>{{ entry['supportPage'] }}</td>
+                        <td>{{ entry['vulnerabilityCategory'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container" id="helm-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Namespace</th>
+                        <th>Priority</th>
+                        <th>Support Page</th>
+                        <th>Vulnerability Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in helm_data %}
+                    <tr>
+                        <td>{{ entry['namespace'] }}</td>
+                        <td>{{ entry['priority'] }}</td>
+                        <td>{{ entry['supportPage'] }}</td>
+                        <td>{{ entry['vulnerabilityCategory'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container" id="checkov-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Namespace</th>
+                        <th>Priority</th>
+                        <th>Support Page</th>
+                        <th>Vulnerability Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in checkov_data %}
+                    <tr>
+                        <td>{{ entry['namespace'] }}</td>
+                        <td>{{ entry['priority'] }}</td>
+                        <td>{{ entry['supportPage'] }}</td>
+                        <td>{{ entry['vulnerabilityCategory'] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tableContainers = document.querySelectorAll('.table-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTable = tab.dataset.table;
+                    tableContainers.forEach(container => {
+                        if (container.id === `${targetTable}-table`) {
+                            container.classList.add('active');
+                        } else {
+                            container.classList.remove('active');
+                        }
+                    });
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

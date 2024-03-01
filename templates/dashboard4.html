@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard for Bugging Policies</h1>
+    
+    <h2>Docker Bugging Data:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Namespace</th>
+                <th>Priority</th>
+                <th>Support Page</th>
+                <th>Vulnerability Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in docker_data %}
+            <tr>
+                <td>{{ entry['namespace'] }}</td>
+                <td>{{ entry['priority'] }}</td>
+                <td>{{ entry['supportPage'] }}</td>
+                <td>{{ entry['vulnerabilityCategory'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h3>Helm Bugging Data:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Namespace</th>
+                <th>Priority</th>
+                <th>Support Page</th>
+                <th>Vulnerability Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in helm_data %}
+            <tr>
+                <td>{{ entry['namespace'] }}</td>
+                <td>{{ entry['priority'] }}</td>
+                <td>{{ entry['supportPage'] }}</td>
+                <td>{{ entry['vulnerabilityCategory'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4>Checkov Bugging Data:</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Namespace</th>
+                <th>Priority</th>
+                <th>Support Page</th>
+                <th>Vulnerability Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in checkov_data %}
+            <tr>
+                <td>{{ entry['namespace'] }}</td>
+                <td>{{ entry['priority'] }}</td>
+                <td>{{ entry['supportPage'] }}</td>
+                <td>{{ entry['vulnerabilityCategory'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard for Bugging Policies</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard for Bugging Policies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Serial</th>
+                <th>Namespace</th>
+                <th>Priority</th>
+                <th>Support Page</th>
+                <th>Vulnerability Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in bugging_data %}
+            <tr>
+                <td>{{ entry['serial'] }}</td>
+                <td>{{ entry['namespace'] }}</td>
+                <td>{{ entry['priority'] }}</td>
+                <td>{{ entry['supportPage'] }}</td>
+                <td>{{ entry['vulnerabilityCategory'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
